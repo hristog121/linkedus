@@ -1,12 +1,29 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import { Button, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import { createStackNavigator} from 'react-navigation';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
 class HomeScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Home!</Text>
+        <Button
+          title="Go to Details"
+          onPress={() => this.props.navigation.navigate('Details')}
+        />
+      </View>
+    );
+  }
+}
+
+class SettingsScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Settings!</Text>
         <Button
           title="Go to Details"
           onPress={() => this.props.navigation.navigate('Details')}
@@ -19,25 +36,44 @@ class HomeScreen extends React.Component {
 class DetailsScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Details!</Text>
       </View>
     );
   }
 }
 
-const RootStack = createStackNavigator(
+const HomeStack = createStackNavigator({
+  Home: { screen: HomeScreen },
+  Details: { screen: DetailsScreen },
+});
+
+const SettingsStack = createStackNavigator({
+  Settings: { screen: SettingsScreen },
+  Details: { screen: DetailsScreen },
+});
+
+export default createMaterialBottomTabNavigator(
   {
-    Home: HomeScreen,
-    Details: DetailsScreen,
+    Home: { screen: HomeStack },
+    Settings: { screen: SettingsStack },
   },
   {
-    initialRouteName: 'Home',
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === 'Home') {
+          iconName = `home${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Settings') {
+          iconName = `setting${focused ? '' : '-outline'}`;
+        }
+        return <AntDesign name={iconName} size={25} color={tintColor} />;
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'gray',
+    },
   }
 );
-
-export default class App extends React.Component {
-  render() {
-    return <RootStack />;
-  }
-}
