@@ -70,9 +70,5 @@ export default createMaterialBottomTabNavigator(
         return <AntDesign name={iconName} size={25} color={tintColor} />;
       },
     }),
-    tabBarOptions: {
-      activeTintColor: 'tomato',
-      inactiveTintColor: 'gray',
-    },
   }
 );
