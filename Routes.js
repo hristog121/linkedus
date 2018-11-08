@@ -4,10 +4,16 @@ import { AntDesign } from '@expo/vector-icons';
 import { createStackNavigator } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
+import Login from "./Login";
+
 class HomeScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Button
+          title="Go to Login"
+          onPress={() => this.props.navigation.navigate('Login')}
+        />
         <Text>Home!</Text>
         <Button
           title="Go to Details"
@@ -42,9 +48,20 @@ class DetailsScreen extends React.Component {
   }
 }
 
+class LoginScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Login />
+      </View>
+    );
+  }
+}
+
 const HomeStack = createStackNavigator({
   Home: { screen: HomeScreen },
   Details: { screen: DetailsScreen },
+  Login: { screen: LoginScreen },
 });
 
 const SettingsStack = createStackNavigator({
