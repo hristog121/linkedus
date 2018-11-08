@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
@@ -24,11 +25,25 @@ class HomeScreen extends React.Component {
   }
 }
 
-class SettingsScreen extends React.Component {
+class MessageScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Settings!</Text>
+        <Text>Messages!</Text>
+        <Button
+          title="Go to Details"
+          onPress={() => this.props.navigation.navigate('Details')}
+        />
+      </View>
+    );
+  }
+}
+
+class FavoriteScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Favorites!</Text>
         <Button
           title="Go to Details"
           onPress={() => this.props.navigation.navigate('Details')}
@@ -61,18 +76,24 @@ class LoginScreen extends React.Component {
 const HomeStack = createStackNavigator({
   Home: { screen: HomeScreen },
   Details: { screen: DetailsScreen },
-    AutLog: { screen: LoginScreen },
+  AutLog: { screen: LoginScreen },
 });
 
-const SettingsStack = createStackNavigator({
-  Settings: { screen: SettingsScreen },
+const MessageStack = createStackNavigator({
+  Message: { screen: MessageScreen },
+  Details: { screen: DetailsScreen },
+});
+
+const FavoriteStack = createStackNavigator({
+  Favorite: { screen: FavoriteScreen },
   Details: { screen: DetailsScreen },
 });
 
 export default createMaterialBottomTabNavigator(
   {
     Home: { screen: HomeStack },
-    Settings: { screen: SettingsStack },
+    Favorite: { screen: FavoriteStack },
+    Message: { screen: MessageStack },
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -80,11 +101,13 @@ export default createMaterialBottomTabNavigator(
         const { routeName } = navigation.state;
         let iconName;
         if (routeName === 'Home') {
-          iconName = 'home';
-        } else if (routeName === 'Settings') {
-          iconName = 'setting';
+          iconName = 'ios-home';
+        } else if (routeName === 'Message') {
+          iconName = 'md-chatboxes';
+        } else if (routeName === 'Favorite') {
+          iconName = 'ios-heart';
         }
-        return <AntDesign name={iconName} size={25} color={tintColor} />;
+        return <Ionicons name={iconName} size={25} color={tintColor} />;
       },
     }),
   }
