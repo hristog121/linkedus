@@ -4,7 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { createStackNavigator } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
-import Login from "./Login";
+import AutLog from "./AutLog.js";
 
 class HomeScreen extends React.Component {
   render() {
@@ -12,7 +12,7 @@ class HomeScreen extends React.Component {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Button
           title="Go to Login"
-          onPress={() => this.props.navigation.navigate('Login')}
+          onPress={() => this.props.navigation.navigate('AutLog')}
         />
         <Text>Home!</Text>
         <Button
@@ -52,7 +52,7 @@ class LoginScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Login />
+        <AutLog />
       </View>
     );
   }
@@ -61,7 +61,7 @@ class LoginScreen extends React.Component {
 const HomeStack = createStackNavigator({
   Home: { screen: HomeScreen },
   Details: { screen: DetailsScreen },
-  Login: { screen: LoginScreen },
+    AutLog: { screen: LoginScreen },
 });
 
 const SettingsStack = createStackNavigator({
